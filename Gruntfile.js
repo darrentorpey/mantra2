@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     // We only want to bother linting the Gruntfile itself and first-party JS (not libraries)
     jshint: {
       all: [
-        ROOT_PATH + 'src/*.js'
+        ROOT_PATH + 'app/*.js'
       ],
       options: {
         jshintrc: '.jshintrc'
