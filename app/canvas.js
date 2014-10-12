@@ -21,6 +21,12 @@ MantraCanvas.prototype.setBackground = function( background ) {
     this.getCanvas().style.backgroundColor = background;
 };
 
+MantraCanvas.prototype.fillColor = function( color ) {
+    this.getCanvas().getContext().fillColor( color );
+
+    return this;
+};
+
 MantraCanvas.create = function() {
     return document.createElement( 'canvas' );
 };

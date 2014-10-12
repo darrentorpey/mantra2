@@ -29,27 +29,28 @@ Tile.prototype.getOffCanvas = function ( ctx ) {
     return this._offCanvas;
 };
 
-Tile.prototype.draw = function ( ctx ) {
-    var offContext, left, top, size, width, height;
+Tile.prototype.defaultDrawContext = function () {
+    return window.theGame.getCanvas().getContext();
+};
 
-    if ( _.isUndefined( ctx ) ) {
-        ctx = window.theGame.getCanvas().getContext();
-    }
+Tile.prototype.draw = function ( targetContext ) {
+    this.drawBorder();
 
-    left = 0;
-    top = 0;
-    width = this._w;   
-    height = this._h;   
+    this.drawInner();
 
-    offContext = this.getOffCanvas().getContext(); // the offscreen canvas context
+    // Blit offscreen canvas to main canvas
+    targetContext = targetContext || this.defaultDrawContext();
+    targetContext.drawImage( this.getOffCanvas().getCanvas(), this._xLeft, this._yTop );
+};
 
-    // draw border if needed
+Tile.prototype.drawInner = function() {
+    var left = 0,
+        top = 0,
+        width = this._w,
+        height = this._h,
+        offContext = this.getOffCanvas().getContext();
+
     if ( this.borderWidth > 0 ) {
-        console.log('border');
-        offContext.fillStyle = this.borderColor;
-
-        offContext.fillRect( 0, 0, this._w, this._h );
-
         left += this.borderWidth;
         top += this.borderWidth;
 
@@ -62,14 +63,18 @@ Tile.prototype.draw = function ( ctx ) {
     }
 
     offContext.fillRect( left, top, width, height );
+};
 
-    // if ( this.glyph > 0 ) {
-    //     offContext.fillStyle = this.glyphColor;
-    //     offContext.fillText( this.glyphStr, PS.Grid.glyphX, PS.Grid.glyphY );
-    // }
+Tile.prototype.drawBorder = function() {
+    if ( !this.borderWidth ) {
+        return;
+    }
 
-    // Blit offscreen canvas to main canvas
-    ctx.drawImage( this.getOffCanvas().getCanvas(), this._xLeft, this._yTop );
+    var offContext = this.getOffCanvas().getContext();
+
+    offContext.fillStyle = this.borderColor;
+
+    offContext.fillRect( 0, 0, this._w, this._h );
 };
 
 Tile.create = function() {
