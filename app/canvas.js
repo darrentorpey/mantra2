@@ -6,11 +6,19 @@ var document = window.document;
 function MantraCanvas() {
     this.d_canvas = MantraCanvas.create();
 
-    this.context = this.d_canvas.getContext('2d');
+    this._context = this.d_canvas.getContext('2d');
 }
 
 MantraCanvas.prototype.getCanvas = function() {
     return this.d_canvas;
+};
+
+MantraCanvas.prototype.getContext = function() {
+    return this._context;
+};
+
+MantraCanvas.prototype.setBackground = function( background ) {
+    this.getCanvas().style.backgroundColor = background;
 };
 
 MantraCanvas.create = function() {
@@ -18,9 +26,7 @@ MantraCanvas.create = function() {
 };
 
 MantraCanvas.init = function() {
-    var canvas = new MantraCanvas();
-
-    document.body.appendChild( canvas.getCanvas() );
+    return new MantraCanvas();
 };
 
 window.Mantra.Canvas = MantraCanvas;
