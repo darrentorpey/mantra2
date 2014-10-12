@@ -12,6 +12,8 @@ Game.prototype.init = function() {
     document.body.appendChild( this._canvas.getCanvas() );
 
     this._canvas.setBackground( 'black' );
+
+    this._canvas.setDimensions( 480, 300 );
 };
 
 Game.prototype.getCanvas = function() {
