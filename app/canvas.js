@@ -22,7 +22,13 @@ MantraCanvas.prototype.setBackground = function( background ) {
 };
 
 MantraCanvas.prototype.fillColor = function( color ) {
-    this.getCanvas().getContext().fillColor( color );
+    this.getContext().fillStyle = color;
+
+    return this;
+};
+
+MantraCanvas.prototype.fillRect = function() {
+    this.getContext().fillRect.apply( this.getContext(), arguments );
 
     return this;
 };

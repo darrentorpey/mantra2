@@ -1,8 +1,8 @@
 (function() {
 'use strict';
 
-var Mantra = window.Mantra;
-var canvas;
+var Mantra = window.Mantra,
+    document = window.document;
 
 function Game() {}
 

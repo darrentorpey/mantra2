@@ -70,11 +70,9 @@ Tile.prototype.drawBorder = function() {
         return;
     }
 
-    var offContext = this.getOffCanvas().getContext();
-
-    offContext.fillStyle = this.borderColor;
-
-    offContext.fillRect( 0, 0, this._w, this._h );
+    this.getOffCanvas()
+        .fillColor( this.borderColor )
+        .fillRect( 0, 0, this._w, this._h );
 };
 
 Tile.create = function() {
