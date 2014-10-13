@@ -22,8 +22,8 @@ MantraCanvas.prototype.setBackground = function( background ) {
 };
 
 MantraCanvas.prototype.setDimensions = function( width, height ) {
-    this.getCanvas().style.width = width;
-    this.getCanvas().style.height = height;
+    this.getCanvas().width = width;
+    this.getCanvas().height = height;
 };
 
 MantraCanvas.prototype.fillColor = function( color ) {

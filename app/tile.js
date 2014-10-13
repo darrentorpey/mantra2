@@ -4,25 +4,30 @@
 var document = window.document;
 var Mantra = window.Mantra;
 
-function Tile( xPos, yPos, width, height ) {
-    height = height || width;
-
+function Tile( params ) {
     _.extend( this, {
-        _xLeft: xPos,
-        _xRight: xPos + width,
-        _yTop: yPos,
-        _yBottom: yPos - height,
-        _w: width,
-        _h: height,
+        _xLeft:   params.x,
+        _xRight:  params.x + params.width,
+        _yTop:    params.y,
+        _yBottom: params.y + params.height,
+        _w:       params.width,
+        _h:       params.height || params.width,
 
-        borderColor: 'gray',
-        borderWidth: 4,
+        borderColor: params.borderColor || 'gray',
+        borderWidth: params.borderWidth,
 
         dirty: true,
         colorNow: 'white'
     });
 
+    _.defaults( this, {
+        borderWidth: 4,
+    });
+
     this._offCanvas = Mantra.Canvas.init();
+
+    this._offCanvas.setDimensions( this._w, this._h );
+
 }
 
 Tile.prototype.getOffCanvas = function ( ctx ) {
@@ -66,6 +71,7 @@ Tile.prototype.drawInner = function() {
 };
 
 Tile.prototype.drawBorder = function() {
+    console.log('this.borderWidth', this.borderWidth);
     if ( !this.borderWidth ) {
         return;
     }
